@@ -16,6 +16,7 @@ quotes = {
 favorites = []
 
 class QuoteGenerator:
+    @staticmethod
     def generate_quote(category):
         if category in quotes:
             quote = random.choice(quotes[category])
@@ -24,10 +25,12 @@ class QuoteGenerator:
             return {"error": "Invalid category"}, 400
 
 class FavoritesManager:
+    @staticmethod
     def add_to_favorites(quote):
         favorites.append(quote)
         return {"message": "Quote added to favorites"}, 201
 
+    @staticmethod
     def remove_from_favorites(quote):
         if quote in favorites:
             favorites.remove(quote)
@@ -36,12 +39,12 @@ class FavoritesManager:
             return {"error": "Quote not found in favorites"}, 404
 
 @app.route('/quote', methods=['POST'])
-def generate_quote():
+def generate_quote_endpoint():
     category = request.json.get('category')
     return jsonify(QuoteGenerator.generate_quote(category))
 
 @app.route('/favorites', methods=['GET', 'POST', 'DELETE'])
-def manage_favorites():
+def manage_favorites_endpoint():
     if request.method == 'GET':
         return jsonify({"favorites": favorites})
     elif request.method == 'POST':

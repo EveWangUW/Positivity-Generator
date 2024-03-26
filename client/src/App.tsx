@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Button, Container, Typography } from '@mui/material';
+import FavoritesPage from './FavoritesPage';
 
 interface Quote {
   quote: string;
@@ -72,46 +74,50 @@ const App: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom>
-        Quote Generator
-      </Typography>
-      <div>
-        <Button variant="contained" color="primary" onClick={() => generateQuote('think_positive')}>
-          Think Positive
-        </Button>
-        <Button variant="contained" color="primary" onClick={() => generateQuote('control_stress')}>
-          Control Stress and Anxiety
-        </Button>
-        <Button variant="contained" color="primary" onClick={() => generateQuote('be_confident')}>
-          Be Confident
-        </Button>
-      </div>
-      {quote && (
-        <div style={{ marginTop: '20px' }}>
-          <Typography variant="h6">Category: {quote.category}</Typography>
-          <Typography variant="body1">{quote.quote}</Typography>
-          <Button variant="outlined" color="primary" onClick={addToFavorites}>
-            Add to Favorites
-          </Button>
+    <Router>
+      <Container maxWidth="sm">
+        <Typography variant="h4" gutterBottom>
+          Quote Generator
+        </Typography>
+        <div>
+          <Link to="/">
+            <Button variant="contained" color="primary">
+              Generate Quotes
+            </Button>
+          </Link>
+          <Link to="/favorites">
+            <Button variant="contained" color="primary">
+              Favorite Quotes
+            </Button>
+          </Link>
         </div>
-      )}
-      {favorites.length > 0 && (
-        <div style={{ marginTop: '20px' }}>
-          <Typography variant="h6">Favorites:</Typography>
-          <ul>
-            {favorites.map((fav, index) => (
-              <li key={index}>
-                {fav}
-                <Button variant="outlined" color="secondary" onClick={() => removeFromFavorites(fav)}>
-                  Delete
-                </Button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </Container>
+        <Routes>
+          <Route path="/" element={
+            <div>
+              <Button variant="contained" color="primary" onClick={() => generateQuote('think_positive')}>
+                Think Positive
+              </Button>
+              <Button variant="contained" color="primary" onClick={() => generateQuote('control_stress')}>
+                Control Stress and Anxiety
+              </Button>
+              <Button variant="contained" color="primary" onClick={() => generateQuote('be_confident')}>
+                Be Confident
+              </Button>
+              {quote && (
+                <div style={{ marginTop: '20px' }}>
+                  <Typography variant="h6">Category: {quote.category}</Typography>
+                  <Typography variant="body1">{quote.quote}</Typography>
+                  <Button variant="outlined" color="primary" onClick={addToFavorites}>
+                    Add to Favorites
+                  </Button>
+                </div>
+              )}
+            </div>
+          } />
+          <Route path="/favorites" element={<FavoritesPage favorites={favorites} removeFromFavorites={removeFromFavorites} />} />
+        </Routes>
+      </Container>
+    </Router>
   );
 };
 
