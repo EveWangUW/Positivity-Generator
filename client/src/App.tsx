@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import { Button, Container, Typography } from '@mui/material';
 
 interface Quote {
   quote: string;
@@ -13,61 +11,63 @@ const App: React.FC = () => {
   const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
-    // Fetch favorites when component mounts
     fetchFavorites();
   }, []);
 
   const fetchFavorites = async () => {
-    const response = await fetch('http://127.0.0.1:5000/favorites');
-    const data = await response.json();
-    setFavorites(data.favorites);
+    try {
+      const response = await fetch('http://127.0.0.1:5000/favorites');
+      const data = await response.json();
+      setFavorites(data.favorites);
+    } catch (error) {
+      console.error('Error fetching favorites:', error);
+    }
   };
 
   const generateQuote = async (category: string) => {
-    const response = await fetch('http://127.0.0.1:5000/quote', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ category })
-    });
-
-    const data: Quote | null = await response.json();
-    setQuote(data);
-    if (!data) {
-      console.error('Failed to fetch quote:', response.statusText);
+    try {
+      const response = await fetch('http://127.0.0.1:5000/quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ category })
+      });
+      const data: Quote | null = await response.json();
+      setQuote(data);
+    } catch (error) {
+      console.error('Error generating quote:', error);
     }
   };
 
   const addToFavorites = async () => {
-    if (!quote) return;
-
-    const response = await fetch('http://127.0.0.1:5000/favorites', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ quote: quote.quote })
-    });
-
-    await fetchFavorites();
-    if (!response.ok) {
-      console.error('Failed to add to favorites:', response.statusText);
+    try {
+      if (!quote) return;
+      await fetch('http://127.0.0.1:5000/favorites', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quote: quote.quote })
+      });
+      await fetchFavorites();
+    } catch (error) {
+      console.error('Error adding to favorites:', error);
     }
   };
 
   const removeFromFavorites = async (favorite: string) => {
-    const response = await fetch('http://127.0.0.1:5000/favorites', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ quote: favorite })
-    });
-
-    await fetchFavorites();
-    if (!response.ok) {
-      console.error('Failed to remove from favorites:', response.statusText);
+    try {
+      await fetch('http://127.0.0.1:5000/favorites', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ quote: favorite })
+      });
+      await fetchFavorites();
+    } catch (error) {
+      console.error('Error removing from favorites:', error);
     }
   };
 
