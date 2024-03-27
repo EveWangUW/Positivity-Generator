@@ -7,9 +7,21 @@ CORS(app)
 
 # Dummy data for quotes
 quotes = {
-    "think_positive": ["Quote 1", "Quote 2", "Quote 3"],
-    "control_stress": ["Quote 4", "Quote 5", "Quote 6"],
-    "be_confident": ["Quote 7", "Quote 8", "Quote 9"]
+    "think_positive": [
+        "Think positive, be positive, and positive things will happen.",
+        "Your attitude determines your direction.",
+        "Believe you can and you're halfway there."
+    ],
+    "control_stress": [
+        "Inhale confidence, exhale doubt.",
+        "Stress is caused by giving a fu*k. Eliminate the unnecessary.",
+        "Don't stress over what you can't control."
+    ],
+    "be_confident": [
+        "Confidence is not 'they will like me.' Confidence is 'I'll be fine if they don't.'",
+        "You gain strength, courage, and confidence by every experience in which you really stop to look fear in the face.",
+        "Confidence comes from discipline and training."
+    ]
 }
 
 # Initialize an empty list to store favorite quotes

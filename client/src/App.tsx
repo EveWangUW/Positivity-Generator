@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container, Typography, Tab, Tabs,Box} from '@mui/material';
 import FavoritesPage from './FavoritesPage';
 
 interface Quote {
@@ -17,17 +17,12 @@ const App: React.FC = () => {
   }, []);
 
   const fetchFavorites = async () => {
-    try {
       const response = await fetch('http://127.0.0.1:5000/favorites');
       const data = await response.json();
       setFavorites(data.favorites);
-    } catch (error) {
-      console.error('Error fetching favorites:', error);
-    }
   };
 
   const generateQuote = async (category: string) => {
-    try {
       const response = await fetch('http://127.0.0.1:5000/quote', {
         method: 'POST',
         headers: {
@@ -37,13 +32,9 @@ const App: React.FC = () => {
       });
       const data: Quote | null = await response.json();
       setQuote(data);
-    } catch (error) {
-      console.error('Error generating quote:', error);
-    }
   };
 
   const addToFavorites = async () => {
-    try {
       if (!quote) return;
       await fetch('http://127.0.0.1:5000/favorites', {
         method: 'POST',
@@ -53,13 +44,9 @@ const App: React.FC = () => {
         body: JSON.stringify({ quote: quote.quote })
       });
       await fetchFavorites();
-    } catch (error) {
-      console.error('Error adding to favorites:', error);
-    }
   };
 
   const removeFromFavorites = async (favorite: string) => {
-    try {
       await fetch('http://127.0.0.1:5000/favorites', {
         method: 'DELETE',
         headers: {
@@ -68,9 +55,6 @@ const App: React.FC = () => {
         body: JSON.stringify({ quote: favorite })
       });
       await fetchFavorites();
-    } catch (error) {
-      console.error('Error removing from favorites:', error);
-    }
   };
 
   return (
@@ -80,6 +64,13 @@ const App: React.FC = () => {
           Quote Generator
         </Typography>
         <div>
+        <Tabs>
+            <Tab label="Generate Quotes" component={Link} to="/" />
+            <Tab label="Favorite Quotes" component={Link} to="/favorites"/>
+        </Tabs>
+        </div>
+        
+        {/* <div>
           <Link to="/">
             <Button variant="contained" color="primary">
               Generate Quotes
@@ -90,7 +81,8 @@ const App: React.FC = () => {
               Favorite Quotes
             </Button>
           </Link>
-        </div>
+        </div> */}
+
         <Routes>
           <Route path="/" element={
             <div>

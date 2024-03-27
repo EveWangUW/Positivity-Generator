@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container, Typography} from '@mui/material';
 
 interface FavoritesPageProps {
   removeFromFavorites: (quote: string) => void;
