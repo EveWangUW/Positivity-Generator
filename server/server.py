@@ -21,6 +21,11 @@ quotes = {
         "Confidence is not 'they will like me.' Confidence is 'I'll be fine if they don't.'",
         "You gain strength, courage, and confidence by every experience in which you really stop to look fear in the face.",
         "Confidence comes from discipline and training."
+    ],
+    "😎":[
+        "Brauni is cute :3",
+        "ME is great ;D",
+        "Lol this is fun"
     ]
 }
 

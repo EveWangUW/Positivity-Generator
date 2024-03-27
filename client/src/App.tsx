@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Button, Container, Typography, Tab, Tabs,Box} from '@mui/material';
+import { Button, Container, Typography, Tab, Tabs, Box } from '@mui/material';
 import FavoritesPage from './FavoritesPage';
 import "./App.css";
 
@@ -12,97 +12,102 @@ interface Quote {
 const App: React.FC = () => {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false); // State variable to track success message
 
   useEffect(() => {
     fetchFavorites();
   }, []);
 
   const fetchFavorites = async () => {
-      const response = await fetch('http://127.0.0.1:5000/favorites');
-      const data = await response.json();
-      setFavorites(data.favorites);
+    const response = await fetch('http://127.0.0.1:5000/favorites');
+    const data = await response.json();
+    setFavorites(data.favorites);
   };
 
   const generateQuote = async (category: string) => {
-      const response = await fetch('http://127.0.0.1:5000/quote', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ category })
-      });
-      const data: Quote | null = await response.json();
-      setQuote(data);
+    const response = await fetch('http://127.0.0.1:5000/quote', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ category })
+    });
+    const data: Quote | null = await response.json();
+    setQuote(data);
   };
 
   const addToFavorites = async () => {
-      if (!quote) return;
-      await fetch('http://127.0.0.1:5000/favorites', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ quote: quote.quote })
-      });
-      await fetchFavorites();
+    if (!quote) return;
+    await fetch('http://127.0.0.1:5000/favorites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ quote: quote.quote })
+    });
+    await fetchFavorites();
+    setShowSuccessMessage(true); // Display success message
+    setTimeout(() => setShowSuccessMessage(false), 1000); // Hide message after 1 seconds
   };
 
   const removeFromFavorites = async (favorite: string) => {
-      await fetch('http://127.0.0.1:5000/favorites', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ quote: favorite })
-      });
-      await fetchFavorites();
+    await fetch('http://127.0.0.1:5000/favorites', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ quote: favorite })
+    });
+    await fetchFavorites();
   };
 
   return (
     <Router>
-      <Container maxWidth="sm">
-        <Typography variant="h4" style={{ fontSize: '4.2rem' }} gutterBottom>
-          Quote Generator
+      <Container>
+        <Typography variant="h4" style={{ fontSize: '5.2rem', fontWeight: 'bold', textAlign: 'center', marginTop: '50px' }} gutterBottom>
+          Quote Generator 🩵
         </Typography>
         <div>
-        <Tabs>
-            <Tab label="Generate Quotes" style={{ fontSize: '1.2rem' }} component={Link} to="/" sx={{ minWidth: '120px', minHeight: '40px' }}/>
-            <Tab label="Favorite Quotes" style={{ fontSize: '1.2rem' }} component={Link} to="/favorites"sx={{ minWidth: '120px', minHeight: '40px' }}/>
-        </Tabs>
+          <Tabs sx={{ '& .MuiTabs-flexContainer': { justifyContent: 'space-between' } }}>
+            <Tab
+              label="Generate Quotes"
+              style={{ fontSize: '2.2rem', whiteSpace: 'nowrap' }}
+              component={Link}
+              to="/"
+            />
+            <Tab
+              label="Favorite Quotes"
+              style={{ fontSize: '2.2rem', whiteSpace: 'nowrap' }}
+              component={Link}
+              to="/favorites"
+            />
+          </Tabs>
         </div>
-        
-        {/* <div>
-          <Link to="/">
-            <Button variant="contained" color="primary">
-              Generate Quotes
-            </Button>
-          </Link>
-          <Link to="/favorites">
-            <Button variant="contained" color="primary">
-              Favorite Quotes
-            </Button>
-          </Link>
-        </div> */}
 
         <Routes>
           <Route path="/" element={
             <div>
-              <Button variant="contained" style={{ fontSize: '2.2rem' }} color="primary" onClick={() => generateQuote('think_positive')}>
-                Think Positive
+             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button variant="contained" style={{ fontSize: '2rem' }} color="primary" onClick={() => generateQuote('think_positive')}>
+                Think Positive 💪
               </Button>
-              <Button variant="contained" style={{ fontSize: '1.8rem' }} color="primary" onClick={() => generateQuote('control_stress')}>
-                Control Stress and Anxiety
+              <Button variant="contained" style={{ fontSize: '2rem' }} color="primary" onClick={() => generateQuote('control_stress')}>
+                Control Stress 🌊
               </Button>
-              <Button variant="contained" style={{ fontSize: '2.2rem' }} color="primary" onClick={() => generateQuote('be_confident')}>
-                Be Confident
+              <Button variant="contained" style={{ fontSize: '2rem' }} color="primary" onClick={() => generateQuote('be_confident')}>
+                Be Confident 👩🏻‍💻
               </Button>
+              <Button variant="contained" style={{ fontSize: '2rem' }} color="primary" onClick={() => generateQuote('😎')}>
+                😎
+              </Button>
+            </div>
               {quote && (
                 <div style={{ marginTop: '20px' }}>
-                  <Typography variant="h4" style={{ fontSize: '2.2rem' }}>Category: {quote.category}</Typography>
-                  <Typography variant="body1" style={{ fontSize: '2.2rem' }}>{quote.quote}</Typography>
-                  <Button variant="outlined" style={{ fontSize: '2.2rem' }} color="primary" onClick={addToFavorites}>
+                  <Typography variant="body1" style={{ fontSize: '5.2rem' }}>{quote.quote}</Typography>
+                  <Button variant="outlined" style={{ fontSize: '3.2rem' }} color="primary" onClick={addToFavorites}>
                     Add to Favorites
                   </Button>
+                  {showSuccessMessage && <Typography style={{ fontSize: '3rem', color: 'green', marginTop: '10px' }}>Successfully added! ;)</Typography>}
                 </div>
               )}
             </div>

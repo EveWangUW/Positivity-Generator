@@ -8,24 +8,21 @@ interface FavoritesPageProps {
 
 const FavoritesPage: React.FC<FavoritesPageProps> = ({ removeFromFavorites, favorites }) => {
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom>
-        Favorite Quotes
-      </Typography>
-      {favorites.length > 0 ? (
-        <ul>
-          {favorites.map((fav, index) => (
-            <li key={index}>
-              {fav}
-              <Button variant="outlined" color="secondary" onClick={() => removeFromFavorites(fav)}>
-                Delete
-              </Button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <Typography variant="body1">No favorite quotes yet.</Typography>
-      )}
+      <Container>
+    {favorites.length > 0 ? (
+      <ul>
+        {favorites.map((fav, index) => (
+          <li key={index}>
+            <Typography variant="body1" style={{ fontSize: '2.5rem' }}>{fav}</Typography>
+            <Button variant="outlined" color="secondary" style={{ fontSize: '2rem' }} onClick={() => removeFromFavorites(fav)}>
+              Delete
+            </Button>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <Typography variant="body1" style={{ fontSize: '2.5rem' }}>No favorite quotes yet.</Typography>
+    )}
     </Container>
   );
 };
