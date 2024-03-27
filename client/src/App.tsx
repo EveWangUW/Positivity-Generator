@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Button, Container, Typography, Tab, Tabs,Box} from '@mui/material';
 import FavoritesPage from './FavoritesPage';
+import "./App.css";
 
 interface Quote {
   quote: string;
@@ -60,13 +61,13 @@ const App: React.FC = () => {
   return (
     <Router>
       <Container maxWidth="sm">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" style={{ fontSize: '4.2rem' }} gutterBottom>
           Quote Generator
         </Typography>
         <div>
         <Tabs>
-            <Tab label="Generate Quotes" component={Link} to="/" />
-            <Tab label="Favorite Quotes" component={Link} to="/favorites"/>
+            <Tab label="Generate Quotes" style={{ fontSize: '1.2rem' }} component={Link} to="/" sx={{ minWidth: '120px', minHeight: '40px' }}/>
+            <Tab label="Favorite Quotes" style={{ fontSize: '1.2rem' }} component={Link} to="/favorites"sx={{ minWidth: '120px', minHeight: '40px' }}/>
         </Tabs>
         </div>
         
@@ -86,20 +87,20 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={
             <div>
-              <Button variant="contained" color="primary" onClick={() => generateQuote('think_positive')}>
+              <Button variant="contained" style={{ fontSize: '2.2rem' }} color="primary" onClick={() => generateQuote('think_positive')}>
                 Think Positive
               </Button>
-              <Button variant="contained" color="primary" onClick={() => generateQuote('control_stress')}>
+              <Button variant="contained" style={{ fontSize: '1.8rem' }} color="primary" onClick={() => generateQuote('control_stress')}>
                 Control Stress and Anxiety
               </Button>
-              <Button variant="contained" color="primary" onClick={() => generateQuote('be_confident')}>
+              <Button variant="contained" style={{ fontSize: '2.2rem' }} color="primary" onClick={() => generateQuote('be_confident')}>
                 Be Confident
               </Button>
               {quote && (
                 <div style={{ marginTop: '20px' }}>
-                  <Typography variant="h6">Category: {quote.category}</Typography>
-                  <Typography variant="body1">{quote.quote}</Typography>
-                  <Button variant="outlined" color="primary" onClick={addToFavorites}>
+                  <Typography variant="h4" style={{ fontSize: '2.2rem' }}>Category: {quote.category}</Typography>
+                  <Typography variant="body1" style={{ fontSize: '2.2rem' }}>{quote.quote}</Typography>
+                  <Button variant="outlined" style={{ fontSize: '2.2rem' }} color="primary" onClick={addToFavorites}>
                     Add to Favorites
                   </Button>
                 </div>
