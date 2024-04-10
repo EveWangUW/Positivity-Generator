@@ -30,7 +30,9 @@ const App: React.FC = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ category })
+      body: JSON.stringify({ "category": category})
+      //{ category } is shorthand for { "category": category }.
+      //When you're creating an object in JavaScript and you want the key to have the same name as a variable, you can simply use the variable name. JavaScript will automatically interpret it as a key-value pair with the key being the variable name and the value being the value of that variable.
     });
     const data: Quote | null = await response.json();
     setQuote(data);
@@ -97,9 +99,7 @@ const App: React.FC = () => {
               <Button variant="contained" style={{ fontSize: '2rem' }} color="primary" onClick={() => generateQuote('be_confident')}>
                 Be Confident 👩🏻‍💻
               </Button>
-              <Button variant="contained" style={{ fontSize: '2rem' }} color="primary" onClick={() => generateQuote('😎')}>
-                😎
-              </Button>
+            
             </div>
               {quote && (
                 <div style={{ marginTop: '20px' }}>
@@ -110,6 +110,7 @@ const App: React.FC = () => {
                   {showSuccessMessage && <Typography style={{ fontSize: '3rem', color: 'green', marginTop: '10px' }}>Successfully added! ;)</Typography>}
                 </div>
               )}
+              {/* if quote exists (i.e., it's not null or undefined), then the JSX elements inside the parentheses will be rendered. Otherwise, nothing will be rendered. This is a common way to conditionally render components in React based on certain conditions. */}
             </div>
           } />
           <Route path="/favorites" element={<FavoritesPage favorites={favorites} removeFromFavorites={removeFromFavorites} />} />
