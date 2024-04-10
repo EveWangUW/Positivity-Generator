@@ -10,15 +10,18 @@ Frontend: TypeScript, React
 Backend: Flask, Python
 
 **Download and running instructions:**
-- In the terminal, go to the 'client' directory (frontend), run:
-```npm install
-npm run dev```
-
-- Open another terminal, go to the 'Flask-server' directory (backend), run:
-  - source venv/bin/activate
-  - pip3 install Flask 
-  - pip3 install flask-cors
-  - python3 server.py
+1. In the terminal, go to the 'client' directory (frontend), run:
+```
+npm install
+npm run dev
+```
+2. Open another terminal, go to the 'Flask-server' directory (backend), run:
+```
+source venv/bin/activate
+pip3 install Flask 
+pip3 install flask-cors
+python3 server.py
+```
 
 **Tips:**
 Make sure you have the relevant tools installed, such as npm, python, etc. ;)
