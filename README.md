@@ -5,6 +5,9 @@
 - You can click on the button multiple times, and the quote generate will be different. 
 - You can also save the generated results by adding them to your favoriate quotes, and see them (and delete them if you want) by clicking on a seperate tab called 'FAVORITE QUOTES'. 
 
+**Video Demo:**
+https://youtu.be/m2XSWn8g494
+
 **Technology Stacks:**
 Frontend: TypeScript, React
 Backend: Flask, Python
