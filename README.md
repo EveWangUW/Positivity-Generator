@@ -18,7 +18,7 @@ Backend: Flask, Python
 npm install
 npm run dev
 ```
-2. Open another terminal, go to the 'Flask-server' directory (backend), run:
+2. Open another terminal, go to the 'server' directory (backend), run:
 ```
 source venv/bin/activate
 pip3 install Flask 
