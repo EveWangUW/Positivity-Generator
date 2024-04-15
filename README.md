@@ -26,6 +26,7 @@ pip3 install Flask
 pip3 install flask-cors
 python3 server.py
 ```
+4. Then in your browser, go to your localhost:5173, and you should be able to see the 'Positivity Generator'!
 
 **Tips:**
 Make sure you have the relevant tools installed, such as npm, python, etc. ;)
