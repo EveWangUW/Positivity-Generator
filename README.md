@@ -13,12 +13,13 @@ Frontend: TypeScript, React
 Backend: Flask, Python
 
 **Download and running instructions:**
-1. In the terminal, go to the 'client' directory (frontend), run:
+1. Download the code from Github
+2. In the terminal, go to the 'client' directory (frontend), run:
 ```
 npm install
 npm run dev
 ```
-2. Open another terminal, go to the 'server' directory (backend), run:
+3. Open another terminal, go to the 'server' directory (backend), run:
 ```
 source venv/bin/activate
 pip3 install Flask 
